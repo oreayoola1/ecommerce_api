@@ -29,6 +29,11 @@ body
 "username": "john1", 
 "password": "mypassword123" 
 }
+{
+  "username": "ayo2",
+  "password": "mypassword123",
+  "email": "ayo@example.com"
+}
 Authorization: Token your_generated_token
 
 🧪 API Endpoints
@@ -46,3 +51,19 @@ POST http://127.0.0.1:8000/api/auth/register/
 POST http://127.0.0.1:8000/api/auth/token/
 GET http://127.0.0.1:8000/api/products/
 http://127.0.0.1:8000/api/auth/login/
+http://127.0.0.1:8000/api/auth/profile/
+
+### ✅ Key Features Implemented:
+- Created a custom permission `IsAdminOrReadOnly`.
+- Applied permission to `ProductViewSet`:
+  - **Read (GET)** → Allowed for everyone (authenticated users).
+  - **Write (POST, PUT, DELETE)** → Only allowed for **admins**.
+
+### ✅ Testing via Postman
+1. Register/Login to get token.
+2. Test with normal user:
+   - GET `/api/products/` → ✅ Works.
+   - POST `/api/products/` → ❌ Fails with **403 Forbidden**.
+3. Test with admin:
+   - Create admin user in Django Admin or shell.
+   - Use admin token → ✅ POST works.

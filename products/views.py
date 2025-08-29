@@ -6,6 +6,7 @@ from .serializers import CategorySerializer, ProductSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from .permissions import IsAdminOrReadOnly
+from .filters import ProductFilter
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
@@ -16,17 +17,11 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    filterset_fields = ['category', 'stock_quantity']
-    search_fields = ['name']
-    permission_classes = [IsAuthenticated]
-    authentication_classes = [TokenAuthentication]
-
-class ProductViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    filterset_fields = ['category', 'stock_quantity']
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['category', 'stock_quantity', 'price']
     search_fields = ['name']
     permission_classes = [IsAdminOrReadOnly]
     authentication_classes = [TokenAuthentication]
+    ordering_fields = ['price', 'stock_quantity']
+    ordering = ['price']
+    filterset_class = ProductFilter
