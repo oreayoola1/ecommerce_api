@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 
 class RegisterUser(APIView):
     permission_classes = [AllowAny]
@@ -39,3 +40,15 @@ class LoginUser(APIView):
             return Response({"token": token.key}, status=status.HTTP_200_OK)
 
         return Response({"error": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserProfile(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        return Response({
+            "username": user.username,
+            "email": user.email,
+            "is_staff": user.is_staff
+        })

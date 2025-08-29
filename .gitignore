@@ -1,4 +1,17 @@
-venv/
+# Django
+*.pyc
 __pycache__/
 db.sqlite3
-*.pyc
+/static/
+media/
+
+# Virtual environment
+venv/
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
