@@ -8,5 +8,5 @@ urlpatterns = [
     path('register/', RegisterUser.as_view(), name='register'),
     path('login/', LoginUser.as_view(), name='login'),
     path('token/', obtain_auth_token, name='api_token_auth'),
-     path('profile/', UserProfile.as_view(), name='profile'),
+    path('profile/', UserProfile.as_view(), name='profile'),
 ]

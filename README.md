@@ -18,27 +18,28 @@ Authentication
 Token-based authentication
 
 Obtain token:
-POST /api/token/
+POST /api/auth/token/
 Body:
-{ 
-  "username": "john1", 
-  "password": "mypassword123" 
+{
+  "username": "john1",
+  "password": "mypassword123"
 }
 Authorization: Token your_generated_token
 
 User registration
-POST /api/register/
+POST /api/auth/register/
+Body:
 {
   "username": "ayo2",
   "password": "mypassword123",
   "email": "ayo@example.com"
 }
 
-
 Endpoints
 User
-POST /api/register/ – Register new user
-POST /api/login/ – Login and get token
+POST /api/auth/register/    – Register new user
+POST /api/auth/login/       – Login and get token
+POST /api/auth/token/       – Obtain token
 
 Products & Categories
 GET /api/products/ – List products
