@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-i_01($b*z*pol$e^kxwc-tyi1__ugrw2$ve1u4loub@yvtazz%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['ecommerce-backend.onrender.com', 'localhost']
 
@@ -80,12 +80,12 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 import dj_database_url
 import os
+from pathlib import Path
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL')
-    )
+    'default': dj_database_url.config(default=f"sqlite:///{os.path.join(BASE_DIR, 'db.sqlite3')}")
 }
+
 
 
 # Password validation
@@ -126,6 +126,8 @@ STATIC_URL = '/static/'
 
 # For deployment: location where collectstatic will copy files
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 
 # Default primary key field type
